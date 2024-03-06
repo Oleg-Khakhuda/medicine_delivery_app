@@ -3,6 +3,10 @@ import logger from "morgan";
 import cors from "cors";
 import { HttpCode } from "./lib/constants.js";
 
+import shopsRouter from "./routes/api/shops.js";
+import productsRouter from "./routes/api/products.js";
+import ordersRouter from "./routes/api/orders.js"
+
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
@@ -10,7 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.use("/api/shops", shopsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/orders", ordersRouter);
 
 app.use((req, res) => {
     res
