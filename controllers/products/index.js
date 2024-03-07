@@ -18,4 +18,23 @@ const getAllProducts = async (req, res, next) => {
     }
   };
 
-  export {getAllProducts};
+  const getProductsByShop = async (req, res, next) => {
+    const shopId = req.params.id
+    
+    try {
+      const products = await repositoryProducts.getProductsByShop(shopId);
+      if (products) {
+        return res
+          .status(HttpCode.OK)
+          .json({ status: "success", code: HttpCode.OK, products });
+      }
+    } catch (error) {
+      res.status(HttpCode.NOT_FOUND).json({
+        status: "error",
+        code: HttpCode.NOT_FOUND,
+        message: "Щось пішло не так",
+      });
+    }
+  };
+
+  export {getAllProducts, getProductsByShop};

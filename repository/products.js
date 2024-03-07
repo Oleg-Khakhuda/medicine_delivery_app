@@ -1,8 +1,13 @@
 import Products from "../models/product.js";
 
 const getAllProducts = async () => {  
-    const product = await Products.find();
+    const product = await Products.find({});
     return product;
   };
 
-  export default {getAllProducts};
+const getProductsByShop = async (shopId) => {  
+  const product = await Products.find({owner: shopId});
+  return product;
+};
+
+  export default {getAllProducts, getProductsByShop};
